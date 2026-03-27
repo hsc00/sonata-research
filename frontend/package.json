@@ -1,0 +1,21 @@
+{
+  "name": "sonata-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "predev": "node ./scripts/build-research-index.mjs",
+    "build:index": "node ./scripts/build-research-index.mjs",
+    "build": "astro build",
+    "prebuild": "node ./scripts/build-research-index.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "astro": "^5.14.0",
+    "marked": "^16.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}

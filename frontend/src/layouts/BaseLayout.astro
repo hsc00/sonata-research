@@ -1,0 +1,37 @@
+---
+import SearchPanel from "../components/SearchPanel.jsx";
+import { getNavigationGroups } from "../lib/research.js";
+import "../styles/global.css";
+
+const {
+  title = "Sonata",
+  description = "Internal research browser for music history and future-facing generation work.",
+  currentRoute = "/"
+} = Astro.props;
+
+const groups = getNavigationGroups();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="/" class="sidebar-home">Sonata</a>
+          <p>Research browser and internal generation reference.</p>
+        </div>
+        <SearchPanel client:load groups={groups} currentRoute={currentRoute} />
+      </aside>
+      <main class="main-content">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

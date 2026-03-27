@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getOverviewEntry, getSectionCounts, researchEntries } from "../lib/research.js";
+
+const overview = getOverviewEntry();
+const sectionCounts = getSectionCounts();
+const recentEntries = [...researchEntries].slice(0, 8);
+---
+
+<BaseLayout title="Sonata" currentRoute="/">
+  <section class="page-intro">
+    <p class="eyebrow">Internal Research Browser</p>
+    <h1>Music history research with an internal generation layer.</h1>
+    <p>
+      This frontend is intentionally minimal for now. It focuses on stable content structure, local browsing,
+      and future-ready routing so a more opinionated UI pass can happen later without reworking the app.
+    </p>
+  </section>
+
+  <section class="card-grid">
+    {sectionCounts.map((section) => (
+      <a class="card" href={section.route}>
+        <span class="card-label">{section.label}</span>
+        <strong>{section.count} entries</strong>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

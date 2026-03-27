@@ -1,0 +1,12 @@
+/*
+!/.gitignore
+!/.github/
+/.github/*
+!/.github/workflows/
+!/.github/workflows/**
+!/frontend/
+!/frontend/**
+
+frontend/node_modules/
+frontend/dist/
+frontend/.astro/

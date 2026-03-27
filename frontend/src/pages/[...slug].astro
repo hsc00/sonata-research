@@ -1,0 +1,85 @@
+---
+import { marked } from "marked";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import * as research from "../lib/research.js";
+
+export function getStaticPaths() {
+  return research.researchEntries.map((entry) => ({
+    params: {
+      slug: entry.routeSegments.join("/")
+    },
+    props: {
+      entry
+    }
+  }));
+}
+
+const { entry } = Astro.props;
+
+if (!entry) {
+  throw new Error("Research entry not found.");
+}
+
+const resolvedEntry = research.findEntryBySlug(entry.routeSegments) ?? entry;
+const siblings = research.getSiblingEntries(resolvedEntry);
+let headingIndex = 0;
+
+const processedMarkdown = resolvedEntry.markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text, href) => {
+  try {
+    const mapped = research.resolveMarkdownHref(href, resolvedEntry.sourcePath) || href;
+    return `[${text}](${mapped})`;
+  } catch (e) {
+    return m;
+  }
+});
+
+const html = marked.parse(processedMarkdown).replace(/<h([2-6])>(.*?)<\/h\1>/g, (match, depth) => {
+  const heading = resolvedEntry.headings[headingIndex];
+
+  if (!heading || heading.depth !== Number(depth)) {
+    return match;
+  }
+
+  headingIndex += 1;
+  return `<h${depth} id="${heading.slug}">${heading.text}</h${depth}>`;
+});
+const sectionLabel = research.getSectionLabel(resolvedEntry.section);
+---
+
+<BaseLayout title={`${resolvedEntry.title} | Sonata Research`} currentRoute={resolvedEntry.route}>
+  <header class="article-header">
+    <p class="eyebrow">{sectionLabel}</p>
+    <h1>{resolvedEntry.title}</h1>
+    <div class="article-meta">
+      <span>{resolvedEntry.sourcePath.replace(/\.md$/i, "")}</span>
+      <span>{resolvedEntry.headings.length} subsections</span>
+    </div>
+  </header>
+
+  <div class="article-shell">
+    <article class="article-body" set:html={html} />
+
+    <aside class="article-aside">
+      {resolvedEntry.headings.length > 0 && (
+        <section class="toc-block">
+          <h2>On this page</h2>
+          <ul>
+            {resolvedEntry.headings.map((heading) => (
+              <li>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section class="toc-block">
+        <h2>Within {sectionLabel}</h2>
+        <div class="sibling-links">
+          {siblings.previous ? <a href={siblings.previous.route}>Previous: {siblings.previous.title}</a> : <span />}
+          {siblings.next ? <a href={siblings.next.route}>Next: {siblings.next.title}</a> : <span />}
+        </div>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>
