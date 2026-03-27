@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-27T17:32:16.822Z",
+  "generatedAt": "2026-03-27T17:39:51.722Z",
   "entries": [
     {
       "id": "research",
@@ -1323,45 +1323,6 @@
         }
       ],
       "markdown": "---\r\nimage: \"https://upload.wikimedia.org/wikipedia/commons/e/ef/AMS-IX_optical_patch_panel.jpg\"\r\nimage_alt: \"Patch panel / optical patch panel\"\r\nimage_credit: \"Fabienne Serriere\"\r\nimage_credit_url: \"https://commons.wikimedia.org/wiki/File:AMS-IX_optical_patch_panel.jpg\"\r\nimage_license: \"CC BY-SA 3.0\"\r\nimage_license_url: \"https://creativecommons.org/licenses/by-sa/3.0\"\r\nimage_usage: \"permissive\"\r\n---\r\n\r\n# Utility & Routing Practices\r\n\r\nPurpose\r\n\r\n- Practical notes about where effects live in signal flow, how to route them, and workflow patterns that make them useful.\r\n\r\nKey concepts\r\n\r\n- Insert vs Send/Return: use insert for destructive or track-specific processing; sends for shared ambience and texture.\r\n- Parallel processing: blend processed and dry signals for density without losing transients.\r\n- Buses/Auxes: group related channels and apply shared processing (reverb bus, drum bus compressor).\r\n- Sidechain routing: use for ducking, dynamic EQ triggers, and modulation control.\r\n- Automation: effect parameters are often best when automated for arrangement dynamics.\r\n- Gain staging: preserve headroom before and after effects; trim as needed.\r\n\r\nProduction tips\r\n\r\n- Keep a small number of shared reverbs/delays for cohesion; create special auxes for unique effects.\r\n- Use plugin presets as starting points, but dial in parameters for the session's tonality.\r\n- Label and subgroup tracks early to avoid routing confusion.\r\n\r\nQuick takeaway\r\n\r\n- Good routing and gain discipline make effects predictable and musical across mixes.\r\n\r\n## Use Cases\r\n\r\n- **Iconic example:** Parallel drum buss compression and clear send/return architecture as used by many veteran engineers (e.g., heavy-hitting commercial rock/pop mixes) — adds weight while preserving attack and clarity.\r\n- **Forgettable applications:** Conservative use of shared reverb/delay buses and sensible subgrouping to maintain cohesion across a session.\r\n- **Limitations and cautions:** Excessive per-track inserts, poor gain staging, and confusing bussing that creates phase problems and unpredictable summing; often leads to CPU problems and lost control in large sessions.\r\n"
-    },
-    {
-      "id": "research/genres",
-      "title": "Genre Reference",
-      "section": "genres",
-      "contentSegments": [
-        "genres"
-      ],
-      "routeSegments": [
-        "research",
-        "genres"
-      ],
-      "route": "/research/genres",
-      "sourcePath": "genres/README.md",
-      "isIndex": true,
-      "excerpt": "image: \"https://upload.wikimedia.org/wikipedia/commons/d/d3/%D2%9A%D0%9A%D0%AD_%D2%9B%D0%BE%D1%81%D1%8B%D0%BC%D1%88%D0%B0_%D1%82%D0%BE%D0%BC%D1%8B.jpg\" image_alt: \"Қазақ Кеңестік Социалистік Республикасы (12 томдық ҚКЭ–сына қосымша)\" image_credit: \"Own work\" image_credit_url: \"ht",
-      "headings": [
-        {
-          "depth": 2,
-          "text": "Scope",
-          "slug": "scope"
-        },
-        {
-          "depth": 2,
-          "text": "How To Use This Folder",
-          "slug": "how-to-use-this-folder"
-        },
-        {
-          "depth": 2,
-          "text": "Genre Families In This Archive",
-          "slug": "genre-families-in-this-archive"
-        },
-        {
-          "depth": 2,
-          "text": "Core Rule",
-          "slug": "core-rule"
-        }
-      ],
-      "markdown": "---\r\nimage: \"https://upload.wikimedia.org/wikipedia/commons/d/d3/%D2%9A%D0%9A%D0%AD_%D2%9B%D0%BE%D1%81%D1%8B%D0%BC%D1%88%D0%B0_%D1%82%D0%BE%D0%BC%D1%8B.jpg\"\r\nimage_alt: \"Қазақ Кеңестік Социалистік Республикасы (12 томдық ҚКЭ–сына қосымша)\"\r\nimage_credit: \"Own work\"\r\nimage_credit_url: \"https://commons.wikimedia.org/wiki/File%3A%D2%9A%D0%9A%D0%AD_%D2%9B%D0%BE%D1%81%D1%8B%D0%BC%D1%88%D0%B0_%D1%82%D0%BE%D0%BC%D1%8B.jpg\"\r\nimage_license: \"CC BY-SA 4.0\"\r\nimage_license_url: \"https://creativecommons.org/licenses/by-sa/4.0\"\r\nimage_usage: \"permissive\"\r\n---\r\n\r\n# Genre Reference\r\n\r\n## Scope\r\n\r\nThis archive is now organized by genre-family folders rather than a flat list of broad summaries.\r\n\r\nEach family folder covers the major subgenres that repeatedly matter in music history, canon formation, scene identity, and the experimental or alternative lineage that this repository cares about. It is denser than the first pass, but it still filters out thousands of disposable microtags that do not change how music is actually written, arranged, performed, or received.\r\n\r\n## How To Use This Folder\r\n\r\n- use decade files for chronology and historical pressure\r\n- use region files for local scenes and migration patterns\r\n- use instrument files for arrangement and production decisions\r\n- use these family folders when you need the internal logic of a genre and the branches that succeeded or failed\r\n\r\n## Genre Families In This Archive\r\n\r\n- `alternative-indie/`: college rock, shoegaze, slowcore, indie folk, blog-era indie, contemporary post-indie\r\n- `art-pop/`: baroque pop, synth-pop, auteur pop, avant-pop, hyperpop-adjacent mutations\r\n- `blues/`: country blues, classic blues, electric blues, jump blues, revival and deconstruction\r\n- `classical-art-music/`: orchestral tradition, opera, modernism, minimalism, contemporary composition\r\n- `country-folk/`: old-time, bluegrass, protest folk, singer-songwriter, outlaw country, Americana\r\n- `disco-house-techno/`: disco, boogie, house, techno, rave, club-functional hybrids\r\n- `electronic-ambient/`: kosmische, ambient, IDM, downtempo, minimal electronics, sound-sculpted listening music\r\n- `experimental-noise/`: industrial, electroacoustic, harsh noise, free improvisation, drone and sound art\r\n- `gospel-spiritual/`: spirituals, quartet tradition, church gospel, crossover gospel, devotional modernism\r\n- `hip-hop/`: old school, alternative rap, gangsta and Southern rap, trap, drill, experimental internet-era rap\r\n- `jazz/`: early jazz, swing, bebop, modal, free jazz, fusion, contemporary creative music\r\n- `latin-mpb-global-pop/`: salsa, MPB, tropicalia, nueva cancion, reggaeton, Afropop and other global pop modernisms\r\n- `metal/`: heavy metal, thrash, death, black, doom, sludge, progressive and atmospheric branches\r\n- `progressive-psychedelic/`: psychedelic rock, progressive rock, krautrock, Canterbury, post-rock, math-adjacent branches\r\n- `punk-post-punk-new-wave/`: punk, hardcore, post-punk, goth, new wave, synth-pop, no wave, dance-punk\r\n- `reggae-dub-ska/`: ska, rocksteady, roots reggae, dub, dancehall, bass-diaspora continuation\r\n- `rock/`: rock and roll, garage rock, hard rock, heartland rock, album rock, revival branches\r\n- `soul-rnb-funk/`: deep soul, Motown, funk, quiet storm, neo-soul, alternative R&B\r\n\r\n## Core Rule\r\n\r\nGenres survive when form, social function, and sound move together.\r\n\r\nGenres decay when only the surface markers remain: tone presets, wardrobe, nostalgia cues, and platform-facing branding. That is the difference between a living genre and slop."
     },
     {
       "id": "research/genres/alternative-indie",
