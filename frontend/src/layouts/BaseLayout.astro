@@ -1,6 +1,6 @@
 ---
 import SearchPanel from "../components/SearchPanel.jsx";
-import { getNavigationGroups } from "../lib/research.js";
+import { getNavigationGroups, withBasePath } from "../lib/research.js";
 import "../styles/global.css";
 
 const {
@@ -24,7 +24,7 @@ const groups = getNavigationGroups();
     <div class="app-shell">
       <aside class="sidebar">
         <div class="sidebar-header">
-          <a href="/" class="sidebar-home">Sonata</a>
+          <a href={withBasePath("/")} class="sidebar-home">Sonata</a>
           <p>Research browser and internal generation reference.</p>
         </div>
         <SearchPanel client:load groups={groups} currentRoute={currentRoute} />

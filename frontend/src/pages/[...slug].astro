@@ -76,8 +76,8 @@ const sectionLabel = research.getSectionLabel(resolvedEntry.section);
       <section class="toc-block">
         <h2>Within {sectionLabel}</h2>
         <div class="sibling-links">
-          {siblings.previous ? <a href={siblings.previous.route}>Previous: {siblings.previous.title}</a> : <span />}
-          {siblings.next ? <a href={siblings.next.route}>Next: {siblings.next.title}</a> : <span />}
+          {siblings.previous ? <a href={research.withBasePath(siblings.previous.route)}>Previous: {siblings.previous.title}</a> : <span />}
+          {siblings.next ? <a href={research.withBasePath(siblings.next.route)}>Next: {siblings.next.title}</a> : <span />}
         </div>
       </section>
     </aside>

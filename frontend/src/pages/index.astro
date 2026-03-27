@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getOverviewEntry, getSectionCounts, researchEntries } from "../lib/research.js";
+import { getOverviewEntry, getSectionCounts, researchEntries, withBasePath } from "../lib/research.js";
 
 const overview = getOverviewEntry();
 const sectionCounts = getSectionCounts();
@@ -19,7 +19,7 @@ const recentEntries = [...researchEntries].slice(0, 8);
 
   <section class="card-grid">
     {sectionCounts.map((section) => (
-      <a class="card" href={section.route}>
+      <a class="card" href={withBasePath(section.route)}>
         <span class="card-label">{section.label}</span>
         <strong>{section.count} entries</strong>
       </a>

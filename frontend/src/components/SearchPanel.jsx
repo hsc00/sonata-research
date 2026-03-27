@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { withBasePath } from "../lib/research.js";
 
 function matchesQuery(entry, query) {
   if (!query) {
@@ -47,7 +48,7 @@ export default function SearchPanel({ groups, currentRoute }) {
                     aria-current={
                       item.route === currentRoute ? "page" : undefined
                     }
-                    href={item.route}
+                    href={withBasePath(item.route)}
                   >
                     {item.title}
                   </a>

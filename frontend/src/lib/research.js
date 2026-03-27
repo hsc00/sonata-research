@@ -2,6 +2,21 @@ import researchIndex from "../generated/research-index.json";
 
 export const researchEntries = researchIndex.entries;
 
+const BASE_URL = import.meta.env.BASE_URL || "/";
+const BASE_PREFIX = BASE_URL === "/" ? "" : BASE_URL.replace(/\/$/, "");
+
+export function withBasePath(path) {
+  if (!path || !String(path).startsWith("/")) {
+    return path;
+  }
+
+  if (!BASE_PREFIX) {
+    return path;
+  }
+
+  return path === "/" ? `${BASE_PREFIX}/` : `${BASE_PREFIX}${path}`;
+}
+
 // Normalize entries: parse a simple YAML-like frontmatter if present
 function _parseFrontmatter(md) {
   const text = String(md || "");
@@ -282,7 +297,7 @@ export function resolveMarkdownHref(href, fromSourcePath = "README.md") {
   }
 
   if (entry) {
-    return entry.route + (query || "") + (fragment || "");
+    return withBasePath(entry.route + (query || "") + (fragment || ""));
   }
 
   return href;
