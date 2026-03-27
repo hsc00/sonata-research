@@ -46,7 +46,3 @@ The frontend build is self-contained for CI. If the root `research/` folder is n
 GitHub Pages deployment target:
 
 - `https://hsc00.github.io/sonata-research/`
-
-```
-
-```

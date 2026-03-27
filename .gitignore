@@ -4,6 +4,7 @@
 /.github/*
 !/.github/workflows/
 !/.github/workflows/**
+!/README.md
 !/frontend/
 !/frontend/**
 
