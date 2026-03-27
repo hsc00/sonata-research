@@ -23,11 +23,16 @@ const groups = getNavigationGroups();
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="sidebar-header">
-          <a href={withBasePath("/")} class="sidebar-home">Sonata</a>
-          <p>Research browser and internal generation reference.</p>
-        </div>
-        <SearchPanel client:load groups={groups} currentRoute={currentRoute} />
+        <details class="sidebar-disclosure">
+          <summary class="sidebar-toggle">Browse research</summary>
+          <div class="sidebar-panel">
+            <div class="sidebar-header">
+              <a href={withBasePath("/")} class="sidebar-home">Sonata</a>
+              <p>Research browser and internal generation reference.</p>
+            </div>
+            <SearchPanel client:load groups={groups} currentRoute={currentRoute} />
+          </div>
+        </details>
       </aside>
       <main class="main-content">
         <slot />

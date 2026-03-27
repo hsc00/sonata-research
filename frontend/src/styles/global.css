@@ -55,6 +55,18 @@ a:hover {
   padding: 1.25rem;
 }
 
+.sidebar-disclosure {
+  display: grid;
+}
+
+.sidebar-toggle {
+  display: none;
+}
+
+.sidebar-panel {
+  display: grid;
+}
+
 .sidebar-header {
   margin-bottom: 1.5rem;
 }
@@ -73,6 +85,8 @@ a:hover {
 
 .main-content {
   width: min(100%, var(--content-width));
+  min-width: 0;
+  margin: 0 auto;
   padding: 2rem;
 }
 
@@ -238,6 +252,20 @@ a:hover {
   font-family: "Courier New", monospace;
 }
 
+.article-body pre,
+.article-body table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.article-body img,
+.article-body svg,
+.article-body video,
+.article-body iframe {
+  max-width: 100%;
+  height: auto;
+}
+
 .article-meta {
   display: flex;
   flex-wrap: wrap;
@@ -274,13 +302,84 @@ a:hover {
     height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    overflow: visible;
+  }
+
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.9rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .sidebar-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .sidebar-toggle::after {
+    content: "+";
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .sidebar-disclosure[open] .sidebar-toggle::after {
+    content: "-";
+  }
+
+  .sidebar-panel {
+    padding-top: 0.9rem;
   }
 
   .main-content {
     padding: 1rem;
   }
 
+  .page-intro,
+  .content-block,
+  .article-header,
+  .article-body,
+  .article-aside {
+    padding: 1rem;
+  }
+
+  .page-intro h1,
+  .article-header h1 {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading-row,
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
   .article-shell {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 961px) {
+  .sidebar-disclosure {
+    display: block;
+  }
+
+  .sidebar-disclosure > .sidebar-panel,
+  .sidebar-disclosure:not([open]) > .sidebar-panel {
+    display: block;
   }
 }
