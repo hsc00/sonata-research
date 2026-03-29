@@ -1,6 +1,7 @@
 ---
 import { marked } from "marked";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleNav from "../components/ArticleNav.jsx";
 import * as research from "../lib/research.js";
 
 export function getStaticPaths() {
@@ -24,6 +25,46 @@ const resolvedEntry = research.findEntryBySlug(entry.routeSegments) ?? entry;
 const siblings = research.getSiblingEntries(resolvedEntry);
 let headingIndex = 0;
 
+function stripLeadFigure(markdown) {
+  return String(markdown || "").replace(/^<figure[\s\S]*?<\/figure>\s*/i, "");
+}
+
+function stripMarkdown(text) {
+  return String(text || "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
+    .replace(/^>\s?/gm, "")
+    .replace(/^#+\s*/gm, "")
+    .replace(/^[*-]\s+/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractLeadParagraph(markdown) {
+  const blocks = stripLeadFigure(markdown).split(/\r?\n\r?\n/);
+
+  for (const block of blocks) {
+    const trimmed = block.trim();
+
+    if (!trimmed) continue;
+    if (trimmed.startsWith("#")) continue;
+    if (trimmed.startsWith("<")) continue;
+    if (trimmed.startsWith("- ")) continue;
+
+    return stripMarkdown(trimmed);
+  }
+
+  return "";
+}
+
+function estimateReadingMinutes(markdown) {
+  const words = stripMarkdown(stripLeadFigure(markdown)).split(/\s+/).filter(Boolean)
+    .length;
+  return Math.max(1, Math.round(words / 220));
+}
+
 const processedMarkdown = resolvedEntry.markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text, href) => {
   try {
     const mapped = research.resolveMarkdownHref(href, resolvedEntry.sourcePath) || href;
@@ -44,6 +85,11 @@ const html = marked.parse(processedMarkdown).replace(/<h([2-6])>(.*?)<\/h\1>/g, 
   return `<h${depth} id="${heading.slug}">${heading.text}</h${depth}>`;
 });
 const sectionLabel = research.getSectionLabel(resolvedEntry.section);
+const leadParagraph = extractLeadParagraph(resolvedEntry.markdown);
+const readingMinutes = estimateReadingMinutes(resolvedEntry.markdown);
+const keySections = resolvedEntry.headings
+  .filter((heading) => heading.depth === 2 && heading.text !== "Sources")
+  .slice(0, 5);
 ---
 
 <BaseLayout title={`${resolvedEntry.title} | Sonata Research`} currentRoute={resolvedEntry.route}>
@@ -53,25 +99,51 @@ const sectionLabel = research.getSectionLabel(resolvedEntry.section);
     <div class="article-meta">
       <span>{resolvedEntry.sourcePath.replace(/\.md$/i, "")}</span>
       <span>{resolvedEntry.headings.length} subsections</span>
+      <span>{readingMinutes} min read</span>
     </div>
   </header>
+
+  <section class="article-glance">
+    <div class="glance-card glance-lead">
+      <p class="eyebrow">At A Glance</p>
+      <p>{leadParagraph}</p>
+    </div>
+
+    <div class="glance-card">
+      <p class="eyebrow">Quick Map</p>
+      <ul class="glance-list">
+        {keySections.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="glance-card glance-stats">
+      <p class="eyebrow">Reading Shape</p>
+      <dl>
+        <div>
+          <dt>Read time</dt>
+          <dd>{readingMinutes} min</dd>
+        </div>
+        <div>
+          <dt>Main sections</dt>
+          <dd>{keySections.length}</dd>
+        </div>
+        <div>
+          <dt>Total subsections</dt>
+          <dd>{resolvedEntry.headings.length}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
 
   <div class="article-shell">
     <article class="article-body" set:html={html} />
 
     <aside class="article-aside">
-      {resolvedEntry.headings.length > 0 && (
-        <section class="toc-block">
-          <h2>On this page</h2>
-          <ul>
-            {resolvedEntry.headings.map((heading) => (
-              <li>
-                <a href={`#${heading.slug}`}>{heading.text}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <ArticleNav client:load headings={resolvedEntry.headings} />
 
       <section class="toc-block">
         <h2>Within {sectionLabel}</h2>
