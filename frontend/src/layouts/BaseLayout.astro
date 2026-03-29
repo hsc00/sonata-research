@@ -4,7 +4,7 @@ import { getNavigationGroups, withBasePath } from "../lib/research.js";
 import "../styles/global.css";
 
 const {
-  title = "Sonata",
+  title = "Sonata Research",
   description = "Sonata Research focuses on understanding music",
   currentRoute = "/"
 } = Astro.props;
@@ -27,8 +27,8 @@ const groups = getNavigationGroups();
           <summary class="sidebar-toggle">Browse research</summary>
           <div class="sidebar-panel">
             <div class="sidebar-header">
-              <a href={withBasePath("/")} class="sidebar-home">Sonata</a>
-              <p>Research browser and internal generation reference.</p>
+              <a href={withBasePath("/")} class="sidebar-home">Sonata Research</a>
+              <p>Sonata Research focuses on understanding music.</p>
             </div>
             <SearchPanel client:load groups={groups} currentRoute={currentRoute} />
           </div>
