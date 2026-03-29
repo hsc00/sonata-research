@@ -20,6 +20,11 @@ const groups = getNavigationGroups();
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0f1318" />
+    <script is:inline>
+      if (window.matchMedia("(max-width: 960px)").matches) {
+        document.documentElement.dataset.sidebarInit = "mobile";
+      }
+    </script>
   </head>
   <body class="theme-dark">
     <div class="app-shell">
@@ -39,5 +44,25 @@ const groups = getNavigationGroups();
         <slot />
       </main>
     </div>
+    <script is:inline>
+      const sidebarDisclosure = document.querySelector(".sidebar-disclosure");
+
+      if (sidebarDisclosure) {
+        const mobileQuery = window.matchMedia("(max-width: 960px)");
+
+        const syncSidebarDisclosure = (event) => {
+          sidebarDisclosure.open = !event.matches;
+          document.documentElement.removeAttribute("data-sidebar-init");
+        };
+
+        syncSidebarDisclosure(mobileQuery);
+
+        if (typeof mobileQuery.addEventListener === "function") {
+          mobileQuery.addEventListener("change", syncSidebarDisclosure);
+        } else {
+          mobileQuery.addListener(syncSidebarDisclosure);
+        }
+      }
+    </script>
   </body>
 </html>
