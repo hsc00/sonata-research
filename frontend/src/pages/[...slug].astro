@@ -74,7 +74,7 @@ const processedMarkdown = resolvedEntry.markdown.replace(/\[([^\]]+)\]\(([^)]+)\
   }
 });
 
-const html = marked.parse(processedMarkdown).replace(/<h([2-6])>(.*?)<\/h\1>/g, (match, depth) => {
+const html = marked.parse(processedMarkdown).replace(/<h([2-6])>(.*?)<\/h\1>/g, (match, depth, innerHtml) => {
   const heading = resolvedEntry.headings[headingIndex];
 
   if (!heading || heading.depth !== Number(depth)) {
@@ -82,7 +82,7 @@ const html = marked.parse(processedMarkdown).replace(/<h([2-6])>(.*?)<\/h\1>/g, 
   }
 
   headingIndex += 1;
-  return `<h${depth} id="${heading.slug}">${heading.text}</h${depth}>`;
+  return `<h${depth} id="${heading.slug}">${innerHtml}</h${depth}>`;
 });
 const sectionLabel = research.getSectionLabel(resolvedEntry.section);
 const leadParagraph = extractLeadParagraph(resolvedEntry.markdown);
